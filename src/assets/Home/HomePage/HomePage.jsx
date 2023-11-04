@@ -1,11 +1,13 @@
 import Banner from "../Banner/Banner";
-import Navbar from "../Navbar/Navbar";
+import Faq from "../FAQ/Faq";
+import Features from "../Features/Features";
 
 const HomePage = () => {
     return (
         <div>
-            <Navbar></Navbar>
             <Banner></Banner>
+            <Features></Features>
+            <Faq></Faq>
         </div>
     );
 };
