@@ -143,10 +143,10 @@ const Navbar = () => {
             </div>
           ) : (
             <NavLink
-              to="/signIn"
+              to="/login"
               className="btn text-[#8973c0] btn-outline rounded-md"
             >
-              Sign In
+              Log In
             </NavLink>
           )}
         </div>
