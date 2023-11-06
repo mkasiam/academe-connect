@@ -32,7 +32,7 @@ const UpdateAssignment = () => {
     console.log(user.email);
     console.log(creatorEmail);
     if (user.email === creatorEmail) {
-      fetch(`http://localhost:5000/assignments/${_id}`, {
+      fetch(`https://academe-connect-server.vercel.app/assignments/${_id}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",

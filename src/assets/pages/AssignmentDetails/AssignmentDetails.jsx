@@ -1,8 +1,8 @@
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import Swal from "sweetalert2";
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const AssignmentDetails = () => {
   const assignmentData = useLoaderData();
@@ -31,7 +31,7 @@ const AssignmentDetails = () => {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          fetch(`http://localhost:5000/assignments/${id}`, {
+          fetch(`https://academe-connect-server.vercel.app/assignments/${id}`, {
             method: "DELETE",
           })
             .then((res) => res.json())
@@ -61,7 +61,7 @@ const AssignmentDetails = () => {
     const submittedUser = user.email;
     const submittedAssignment = {pdfLink,quickNote,status:"pending",submittedUser};
     console.log(submittedAssignment);
-    axios.post("http://localhost:5000/submittedAssignments",submittedAssignment)
+    axios.post("https://academe-connect-server.vercel.app/submittedAssignments",submittedAssignment)
     .then(res => {
       const data = res.data;
       if (data.acknowledged) {
