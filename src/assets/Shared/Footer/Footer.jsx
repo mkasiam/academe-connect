@@ -2,11 +2,11 @@ import { FaFacebookF, FaInstagram, FaTwitter, FaTiktok } from "react-icons/fa";
 import { Link } from "react-router-dom";
 const Footer = () => {
   return (
-    <footer className="footer footer-center p-3 md:p-5 lg:p-7 bg-[#8973c0] bg-text-primary-content">
+    <footer className="footer footer-center p-3 md:p-5 lg:p-7 bg-[#8768EE] bg-text-primary-content">
       <aside>
         <img src="https://i.ibb.co/HqXzyCC/academe-connect-logo.png" alt="" />
         <p className="text-lg font-medium">
-          Bringing Tomorrows Tech to Your Doorstep.
+           Collaborative Learning Made Easy with academe-connect
         </p>
       </aside>
       <nav className="grid grid-flow-col gap-4">
