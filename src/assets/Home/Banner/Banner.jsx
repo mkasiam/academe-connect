@@ -30,10 +30,10 @@ const Banner = () => {
             </div>
             <div className="flex gap-4 mt-4">
               <button className="px-4 py-2 bg-[#8768EE] rounded-md text-white font-bold">
-                <Link to="/">Get Started</Link>
+                <Link to="/createAssignment">Get Started</Link>
               </button>
               <button className="btn text-[#8768EE] btn-outline rounded-md">
-                <Link to="/products">All Assignments</Link>
+                <Link to="/assignments">All Assignments</Link>
               </button>
             </div>
           </div>
@@ -64,7 +64,7 @@ const Banner = () => {
               Keep your group study on track with Academe-Connect. Collaborate seamlessly, complete assignments together, and achieve your study goals as a team.
               </p>
               <button className="px-4 py-2 bg-[#8768EE] rounded-md text-white font-bold float-left md:float-right lg:float-right">
-                <Link to="/">Review Work</Link>
+                <Link to="/submitted">Review Work</Link>
               </button>
             </div>
             

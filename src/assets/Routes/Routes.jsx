@@ -5,6 +5,13 @@ import NotFound from "../pages/NotFound/NotFound";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Profile from "../pages/Profile/Profile";
+import Assignments from "../Assignments/Assignments";
+import CreateAssignment from "../CreateAssignment/CreateAssignment"
+import SubmittedAssignments from "../SubmittedAssignments/SubmittedAssignments";
+import MyAssignment from "../pages/MyAssignment/MyAssignment";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import UpdateAssignment from "../UpdateAssignment/UpdateAssignment";
+
 
 const router = createBrowserRouter([
   {
@@ -25,7 +32,27 @@ const router = createBrowserRouter([
       },
       {
         path:"/profile",
-        element:<Profile></Profile>
+        element:<PrivateRoute><Profile></Profile></PrivateRoute>
+      },
+      {
+        path:"/assignments",
+        element:<Assignments></Assignments>
+      },
+      {
+        path:"/createAssignment",
+        element:<PrivateRoute><CreateAssignment></CreateAssignment></PrivateRoute>
+      },
+      {
+        path:"/updateAssignment",
+        element:<UpdateAssignment></UpdateAssignment>
+      },
+      {
+        path:"/submitted",
+        element:<PrivateRoute><SubmittedAssignments></SubmittedAssignments></PrivateRoute>
+      },
+      {
+        path:"/myAssignments",
+        element:<PrivateRoute><MyAssignment></MyAssignment></PrivateRoute>
       },
       {
         path:"*",

@@ -30,22 +30,19 @@ const Navbar = () => {
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
+          <li>
+            <NavLink to="/assignments">Assignments</NavLink>
+          </li>
       {user && (
         <>
           <li>
-            <NavLink to="/addProduct">Add Product</NavLink>
+            <NavLink to="/createAssignment">Create Assignment</NavLink>
           </li>
           <li>
-            <NavLink to="/myCart">My Cart</NavLink>
+            <NavLink to="/submitted">Submitted Assignment</NavLink>
           </li>
         </>
       )}
-      <li>
-        <NavLink to="/about">About</NavLink>
-      </li>
-      <li>
-        <NavLink to="/contact">Contact</NavLink>
-      </li>
       <li>
         <label className="swap swap-rotate mt-1">
           {/* this hidden checkbox controls the state */}
@@ -135,6 +132,9 @@ const Navbar = () => {
               >
                 <li>
                   <Link to="/profile">Profile</Link>
+                </li>
+                <li>
+                  <Link to="/myAssignments">My Assignment</Link>
                 </li>
                 <li>
                   <a onClick={handleLogOut}>Logout</a>
