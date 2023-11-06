@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const AssignmentDetails = () => {
+    const assignmentData = useLoaderData();
+    console.log(assignmentData);
   
   return (
     <div className="card card-side flex flex-col md:flex-row lg:flex-row bg-base-100 shadow-xl md:flex md:space-x-4">

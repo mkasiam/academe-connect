@@ -1,17 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
-import HomePage from "../Home/HomePage/HomePage";
-import Root from "../Root/Root";
-import NotFound from "../pages/NotFound/NotFound";
-import Login from "../pages/Login/Login";
-import Register from "../pages/Register/Register";
-import Profile from "../pages/Profile/Profile";
 import Assignments from "../Assignments/Assignments";
 import CreateAssignment from "../CreateAssignment/CreateAssignment";
-import SubmittedAssignments from "../SubmittedAssignments/SubmittedAssignments";
-import MyAssignment from "../pages/MyAssignment/MyAssignment";
+import HomePage from "../Home/HomePage/HomePage";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import Root from "../Root/Root";
+import SubmittedAssignments from "../SubmittedAssignments/SubmittedAssignments";
 import UpdateAssignment from "../UpdateAssignment/UpdateAssignment";
 import AssignmentDetails from "../pages/AssignmentDetails/AssignmentDetails";
+import Login from "../pages/Login/Login";
+import MyAssignment from "../pages/MyAssignment/MyAssignment";
+import NotFound from "../pages/NotFound/NotFound";
+import Profile from "../pages/Profile/Profile";
+import Register from "../pages/Register/Register";
 
 const router = createBrowserRouter([
   {
@@ -58,7 +58,8 @@ const router = createBrowserRouter([
             <UpdateAssignment></UpdateAssignment>
           </PrivateRoute>
         ),
-        loader: ({ params }) => fetch(`http://localhost:5000/${params.id}`),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/assignments/${params.id}`),
       },
       {
         path: "/assignmentDetails/:id",
@@ -67,7 +68,8 @@ const router = createBrowserRouter([
             <AssignmentDetails></AssignmentDetails>
           </PrivateRoute>
         ),
-        loader:({params})=> fetch(`http://localhost:5000/${params.id}`)
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/assignments/${params.id}`),
       },
       {
         path: "/submitted",
