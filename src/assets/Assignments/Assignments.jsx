@@ -4,7 +4,7 @@ import Assignment from "../Assignment/Assignment";
 
 const Assignments = () => {
   const assignments = useLoaderData();
-  const [selectedDifficulty, setSelectedDifficulty] = useState("all"); //
+  const [selectedDifficulty, setSelectedDifficulty] = useState("all"); 
 
   // Handle user's difficulty level selection
   const handleFilterChange = (event) => {
@@ -21,12 +21,12 @@ const Assignments = () => {
   return (
     <div>
       <div className="flex justify-end">
-        <div>
+        <div className="flex justify-center">
           <label
             htmlFor="difficultyFilter"
             className="text-lg font-medium text-gray-700"
           >
-            Filter by Difficulty:
+            Filter by Difficulty
           </label>
           <select
             id="difficultyFilter"
@@ -43,7 +43,7 @@ const Assignments = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8 mt-4">
         {filteredAssignments.map((assignment) => (
           <Assignment key={assignment._id} assignment={assignment} />
         ))}

@@ -2,11 +2,15 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useAuth from "../hooks/useAuth";
+import { useLoaderData } from "react-router-dom";
 
 const UpdateAssignment = () => {
+  const assignmentData = useLoaderData();
+  console.log(assignmentData);
+  const {title,marks,thumbnail,details,dueDate,difficulty} = assignmentData;
   const { user } = useAuth();
-  const [difficulty, setDifficulty] = useState("easy");
-  const [dueDate, setDueDate] = useState(new Date());
+  const [updatedDifficulty, setUpdatedDifficulty] = useState("easy");
+  const [UpdatedDueDate, setUpdatedDueDate] = useState(new Date());
   const handleUpdateAssignment = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -20,8 +24,8 @@ const UpdateAssignment = () => {
       marks,
       thumbnail,
       details,
-      difficulty,
-      dueDate,
+      difficulty:updatedDifficulty,
+      dueDate:UpdatedDueDate,
       creatorEmail,
     };
     console.log(UpdatedAssignmentInfo);
@@ -47,6 +51,7 @@ const UpdateAssignment = () => {
                 className="w-full border rounded py-2 px-3"
                 placeholder="Assignment Title"
                 name="title"
+                value={title}
                 required
               />
             </div>
@@ -63,6 +68,7 @@ const UpdateAssignment = () => {
                 className="w-full border rounded py-2 px-3"
                 placeholder="Assignment Marks"
                 name="marks"
+                value={marks}
                 required
               />
             </div>
@@ -77,6 +83,7 @@ const UpdateAssignment = () => {
                 type="text"
                 id="thumbnail"
                 name="thumbnail"
+                value={thumbnail}
                 className="w-full border py-2 px-3"
                 required
               />
@@ -92,8 +99,9 @@ const UpdateAssignment = () => {
                 <DatePicker
                   id="dueDate"
                   selected={dueDate}
-                  onChange={(date) => setDueDate(date)}
+                  onChange={(date) => setUpdatedDueDate(date)}
                   className="w-full rounded py-2 px-3"
+                  value={dueDate}
                   required
                 />
               </div>
@@ -110,6 +118,7 @@ const UpdateAssignment = () => {
                 className="w-full border rounded py-3 px-3"
                 placeholder="Assignment Description"
                 name="details"
+                value={details}
                 required
               />
             </div>
@@ -124,7 +133,7 @@ const UpdateAssignment = () => {
                 id="difficulty"
                 className="w-full border rounded py-2 px-3"
                 value={difficulty}
-                onChange={(e) => setDifficulty(e.target.value)}
+                onChange={(e) => setUpdatedDifficulty(e.target.value)}
               >
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
