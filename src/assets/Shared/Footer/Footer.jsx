@@ -5,9 +5,7 @@ const Footer = () => {
     <footer className="footer footer-center p-3 md:p-5 lg:p-7 bg-[#8768EE] bg-text-primary-content">
       <aside>
         <img src="https://i.ibb.co/HqXzyCC/academe-connect-logo.png" alt="" />
-        <p className="text-lg font-medium">
-           Collaborative Learning Made Easy with academe-connect
-        </p>
+        <p className="text-lg font-medium">Your Online Group Study Hub</p>
       </aside>
       <nav className="grid grid-flow-col gap-4">
         <Link to="/" className="link link-hover">
