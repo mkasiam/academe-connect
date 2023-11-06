@@ -1,14 +1,17 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
-import { useLoaderData } from "react-router-dom";
 
 const UpdateAssignment = () => {
+  const navigate = useNavigate();
   const assignmentData = useLoaderData();
-  console.log(assignmentData);
-  const {title,marks,thumbnail,details,dueDate,difficulty} = assignmentData;
+  const { _id, title, marks, thumbnail, details, difficulty, creatorEmail } =
+    assignmentData;
   const { user } = useAuth();
+
   const [updatedDifficulty, setUpdatedDifficulty] = useState("easy");
   const [UpdatedDueDate, setUpdatedDueDate] = useState(new Date());
   const handleUpdateAssignment = (e) => {
@@ -18,17 +21,47 @@ const UpdateAssignment = () => {
     const marks = form.marks.value;
     const thumbnail = form.thumbnail.value;
     const details = form.details.value;
-    const creatorEmail = user.email;
     const UpdatedAssignmentInfo = {
       title,
       marks,
       thumbnail,
       details,
-      difficulty:updatedDifficulty,
-      dueDate:UpdatedDueDate,
-      creatorEmail,
+      difficulty: updatedDifficulty,
+      dueDate: UpdatedDueDate,
     };
-    console.log(UpdatedAssignmentInfo);
+    console.log(user.email);
+    console.log(creatorEmail);
+    if (user.email === creatorEmail) {
+      fetch(`http://localhost:5000/assignments/${_id}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(UpdatedAssignmentInfo),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.modifiedCount) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Assignment Updated Successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            form.reset();
+            navigate("/assignments");
+          }
+        });
+    }
+    else{
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Oops...",
+        text: "Only Assignment Created User Can Do this",
+      });
+    }
   };
   return (
     <>
@@ -51,7 +84,7 @@ const UpdateAssignment = () => {
                 className="w-full border rounded py-2 px-3"
                 placeholder="Assignment Title"
                 name="title"
-                value={title}
+                defaultValue={title}
                 required
               />
             </div>
@@ -68,7 +101,7 @@ const UpdateAssignment = () => {
                 className="w-full border rounded py-2 px-3"
                 placeholder="Assignment Marks"
                 name="marks"
-                value={marks}
+                defaultValue={marks}
                 required
               />
             </div>
@@ -83,7 +116,7 @@ const UpdateAssignment = () => {
                 type="text"
                 id="thumbnail"
                 name="thumbnail"
-                value={thumbnail}
+                defaultValue={thumbnail}
                 className="w-full border py-2 px-3"
                 required
               />
@@ -98,10 +131,10 @@ const UpdateAssignment = () => {
               <div className="border">
                 <DatePicker
                   id="dueDate"
-                  selected={dueDate}
+                  selected={UpdatedDueDate}
                   onChange={(date) => setUpdatedDueDate(date)}
                   className="w-full rounded py-2 px-3"
-                  value={dueDate}
+                  value={UpdatedDueDate}
                   required
                 />
               </div>
@@ -118,7 +151,7 @@ const UpdateAssignment = () => {
                 className="w-full border rounded py-3 px-3"
                 placeholder="Assignment Description"
                 name="details"
-                value={details}
+                defaultValue={details}
                 required
               />
             </div>
@@ -132,7 +165,7 @@ const UpdateAssignment = () => {
               <select
                 id="difficulty"
                 className="w-full border rounded py-2 px-3"
-                value={difficulty}
+                defaultValue={difficulty}
                 onChange={(e) => setUpdatedDifficulty(e.target.value)}
               >
                 <option value="easy">Easy</option>
