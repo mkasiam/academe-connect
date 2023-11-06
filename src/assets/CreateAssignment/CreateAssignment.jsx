@@ -1,10 +1,12 @@
+import axios from "axios";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
 
 const CreateAssignment = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [difficulty, setDifficulty] = useState("easy");
   const [dueDate, setDueDate] = useState(new Date());
   const handleAssignmentCreate = (e) => {
@@ -15,13 +17,37 @@ const CreateAssignment = () => {
     const thumbnail = form.thumbnail.value;
     const details = form.details.value;
     const creatorEmail = user.email;
-    const assignmentInfo ={title,marks,thumbnail,details,difficulty,dueDate,creatorEmail};
+    const assignmentInfo = {
+      title,
+      marks,
+      thumbnail,
+      details,
+      difficulty,
+      dueDate,
+      creatorEmail,
+    };
+    
+    axios.post("http://localhost:5000/assignments",assignmentInfo)
+    .then(res => {
+      const data = res.data;
+      if (data.acknowledged) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Assignment Added Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        e.target.reset();
+      }
+    })
+    .catch(error => console.log(error))
   };
   return (
     <>
       <div className="flex flex-col md:flex-row lg:flex-row  gap-5 bg-[#FFF] rounded-md py-6 px-2 my-8">
         <div className="flex-1">
-            <img src="https://i.ibb.co/tPShm1L/create-assignment.jpg" alt="" />
+          <img src="https://i.ibb.co/tPShm1L/create-assignment.jpg" alt="" />
         </div>
         <div className="flex-1">
           <form onSubmit={handleAssignmentCreate}>
@@ -79,13 +105,15 @@ const CreateAssignment = () => {
               >
                 Due Date:
               </label>
-              <DatePicker
-                id="dueDate"
-                selected={dueDate}
-                onChange={(date) => setDueDate(date)}
-                className="w-full border rounded py-2 px-3"
-                required
-              />
+              <div className="border">
+                <DatePicker
+                  id="dueDate"
+                  selected={dueDate}
+                  onChange={(date) => setDueDate(date)}
+                  className="rounded py-2 px-3"
+                  required
+                />
+              </div>
             </div>
             <div className="mb-4">
               <label
@@ -96,7 +124,7 @@ const CreateAssignment = () => {
               </label>
               <textarea
                 id="description"
-                className="w-full border rounded py-2 px-3"
+                className="w-full border rounded py-3 px-3"
                 placeholder="Assignment Description"
                 name="details"
                 required

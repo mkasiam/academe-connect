@@ -4,7 +4,7 @@ const Faq = () => {
   return (
     <>
       <div>
-        <h2 className="text-2xl md:text-4xl font-semibold text-gray-800 mb-2 md:mb-4 text-center">
+        <h2 className="text-2xl md:text-4xl font-semibold  mb-2 md:mb-4 text-center">
           FAQ
         </h2>
         <p className="text-gray-500 text-sm md:text-lg mb-4 md:mb-8 text-center">

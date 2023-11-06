@@ -3,9 +3,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useAuth from "../hooks/useAuth";
 
-
 const UpdateAssignment = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [difficulty, setDifficulty] = useState("easy");
   const [dueDate, setDueDate] = useState(new Date());
   const handleUpdateAssignment = (e) => {
@@ -16,14 +15,22 @@ const UpdateAssignment = () => {
     const thumbnail = form.thumbnail.value;
     const details = form.details.value;
     const creatorEmail = user.email;
-    const UpdatedAssignmentInfo ={title,marks,thumbnail,details,difficulty,dueDate,creatorEmail};
+    const UpdatedAssignmentInfo = {
+      title,
+      marks,
+      thumbnail,
+      details,
+      difficulty,
+      dueDate,
+      creatorEmail,
+    };
     console.log(UpdatedAssignmentInfo);
   };
   return (
     <>
       <div className="flex flex-col md:flex-row lg:flex-row  gap-5 bg-[#FFF] rounded-md py-6 px-2 my-8">
         <div className="flex-1">
-            <img src="https://i.ibb.co/DMk5GfH/update-assignment.jpg" alt="" />
+          <img src="https://i.ibb.co/DMk5GfH/update-assignment.jpg" alt="" />
         </div>
         <div className="flex-1">
           <form onSubmit={handleUpdateAssignment}>
@@ -81,13 +88,15 @@ const UpdateAssignment = () => {
               >
                 Due Date:
               </label>
-              <DatePicker
-                id="dueDate"
-                selected={dueDate}
-                onChange={(date) => setDueDate(date)}
-                className="w-full border rounded py-2 px-3"
-                required
-              />
+              <div className="border">
+                <DatePicker
+                  id="dueDate"
+                  selected={dueDate}
+                  onChange={(date) => setDueDate(date)}
+                  className="w-full rounded py-2 px-3"
+                  required
+                />
+              </div>
             </div>
             <div className="mb-4">
               <label
@@ -98,7 +107,7 @@ const UpdateAssignment = () => {
               </label>
               <textarea
                 id="description"
-                className="w-full border rounded py-2 px-3"
+                className="w-full border rounded py-3 px-3"
                 placeholder="Assignment Description"
                 name="details"
                 required
