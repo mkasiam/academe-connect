@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider/AuthProvider";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "cupcake"
   );
@@ -22,7 +23,7 @@ const Navbar = () => {
   };
   const handleLogOut = () => {
     logOut()
-      .then()
+      .then(navigate("/"))
       .catch((error) => console.error(error));
   };
   const links = (

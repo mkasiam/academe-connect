@@ -27,7 +27,7 @@ const CreateAssignment = () => {
       creatorEmail,
     };
     
-    axios.post("https://academe-connect-server.vercel.app/assignments",assignmentInfo)
+    axios.post("http://localhost:5000/assignments",assignmentInfo)
     .then(res => {
       const data = res.data;
       if (data.acknowledged) {

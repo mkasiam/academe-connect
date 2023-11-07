@@ -1,10 +1,42 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const SubmittedAssignments = () => {
-  const submitted = useLoaderData();
+  const submittedAssignment = useLoaderData();
+  const [submitted, setSubmitted] = useState(submittedAssignment);
   const [isOpen, setIsOpen] = useState(false);
-  
+
+  const handleGiveMark = (e, id) => {
+    e.preventDefault();
+    const form = e.target;
+    const obtainMarks = form.obtainMarks.value;
+    const feedback = form.feedback.value;
+    const assignment = { obtainMarks, feedback, status: "completed" };
+    fetch(`http://localhost:5000/submittedAssignments/${id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(assignment),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Marks Added Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setIsOpen(false);
+          const remaining = submitted.filter((submit) => submit._id !== id);
+          setSubmitted(remaining);
+        }
+      });
+  };
+
   return (
     <div className="bg-gray-100 flex flex-col-reverse md:flex-row-reverse lg:flex-row-reverse my-8">
       {/* Sidebar */}
@@ -20,7 +52,7 @@ const SubmittedAssignments = () => {
           Pending Assignments
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          {submitted.map((assignment) => (
+          {submitted?.map((assignment) => (
             <div
               key={assignment._id}
               className="bg-white shadow-lg rounded-lg overflow-hidden"
@@ -44,7 +76,7 @@ const SubmittedAssignments = () => {
                   Give Mark
                 </button>
                 {isOpen && (
-                  <form>
+                  <form onSubmit={(e) => handleGiveMark(e, assignment._id)}>
                     <div className="fixed inset-0 flex items-center justify-center z-50">
                       <div className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
                       <div className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
@@ -55,38 +87,29 @@ const SubmittedAssignments = () => {
                             </p>
                           </div>
                           <div className="my-3">
-                            <label
-                              htmlFor="pdfLink"
-                              className="text-lg font-semibold"
-                            >
+                            <label className="text-lg font-semibold">
                               PDF Link:
                             </label>
                             <input
                               type="text"
                               name="pdfLink"
                               className="w-full px-3 py-2 border rounded-md"
-                              value={assignment.pdfLink}
+                              defaultValue={assignment.pdfLink}
                             />
                           </div>
                           <div className="my-3">
-                            <label
-                              htmlFor="quickNote"
-                              className="text-lg font-semibold"
-                            >
+                            <label className="text-lg font-semibold">
                               Quick Note:
                             </label>
                             <textarea
                               id="quickNote"
                               name="quickNote"
                               className="w-full px-3 py-2 border rounded-md"
-                              value={assignment.quickNote}
+                              defaultValue={assignment.quickNote}
                             />
                           </div>
                           <div className="my-3">
-                            <label
-                              htmlFor="marks"
-                              className="text-lg font-semibold"
-                            >
+                            <label className="text-lg font-semibold">
                               Obtain Marks:
                             </label>
                             <input
@@ -94,13 +117,11 @@ const SubmittedAssignments = () => {
                               name="obtainMarks"
                               className="w-full px-3 py-2 border rounded-md"
                               placeholder="Obtain Marks"
+                              required
                             />
                           </div>
                           <div className="my-3">
-                            <label
-                              htmlFor="feedback"
-                              className="text-lg font-semibold"
-                            >
+                            <label className="text-lg font-semibold">
                               Feedback:
                             </label>
                             <input
@@ -108,6 +129,7 @@ const SubmittedAssignments = () => {
                               name="feedback"
                               className="w-full px-3 py-2 border rounded-md"
                               placeholder="Teachers feedback"
+                              required
                             />
                           </div>
                           <div className="mt-5 flex justify-end">

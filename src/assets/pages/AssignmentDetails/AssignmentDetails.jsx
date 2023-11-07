@@ -31,7 +31,7 @@ const AssignmentDetails = () => {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          fetch(`https://academe-connect-server.vercel.app/assignments/${id}`, {
+          fetch(`http://localhost:5000/assignments/${id}`, {
             method: "DELETE",
           })
             .then((res) => res.json())
@@ -61,7 +61,7 @@ const AssignmentDetails = () => {
     const submittedUserEmail = user.email;
     const submittedUserName = user.displayName;
     const submittedAssignment = {title,marks,pdfLink,quickNote,status:"pending",submittedUserEmail,submittedUserName};
-    axios.post("https://academe-connect-server.vercel.app/submittedAssignments",submittedAssignment)
+    axios.post("http://localhost:5000/submittedAssignments",submittedAssignment)
     .then(res => {
       const data = res.data;
       if (data.acknowledged) {
