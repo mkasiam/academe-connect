@@ -41,7 +41,8 @@ const router = createBrowserRouter([
       {
         path: "/assignments",
         element: <Assignments></Assignments>,
-        loader: () => fetch("https://academe-connect-server.vercel.app/assignments"),
+        loader: () =>
+          fetch("https://academe-connect-server.vercel.app/assignments"),
       },
       {
         path: "/createAssignment",
@@ -59,7 +60,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`https://academe-connect-server.vercel.app/assignments/${params.id}`),
+          fetch(
+            `https://academe-connect-server.vercel.app/assignments/${params.id}`
+          ),
       },
       {
         path: "/assignmentDetails/:id",
@@ -69,15 +72,21 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`https://academe-connect-server.vercel.app/assignments/${params.id}`),
+          fetch(
+            `https://academe-connect-server.vercel.app/assignments/${params.id}`
+          ),
       },
       {
-        path: "/submitted",
+        path: "/submittedAssignments",
         element: (
           <PrivateRoute>
             <SubmittedAssignments></SubmittedAssignments>
           </PrivateRoute>
         ),
+        loader: () =>
+          fetch(
+            "https://academe-connect-server.vercel.app/submittedAssignments?status=pending"
+          ),
       },
       {
         path: "/myAssignments",

@@ -7,8 +7,8 @@ const Assignments = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState("all"); 
 
   // Handle user's difficulty level selection
-  const handleFilterChange = (event) => {
-    setSelectedDifficulty(event.target.value);
+  const handleFilterChange = (e) => {
+    setSelectedDifficulty(e.target.value);
   };
 
   // Filtering Assignment based on the difficulty level

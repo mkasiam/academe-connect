@@ -58,9 +58,9 @@ const AssignmentDetails = () => {
     const form = e.target;
     const pdfLink = form?.pdfLink.value;
     const quickNote = form?.quickNote.value;
-    const submittedUser = user.email;
-    const submittedAssignment = {pdfLink,quickNote,status:"pending",submittedUser};
-    console.log(submittedAssignment);
+    const submittedUserEmail = user.email;
+    const submittedUserName = user.displayName;
+    const submittedAssignment = {title,marks,pdfLink,quickNote,status:"pending",submittedUserEmail,submittedUserName};
     axios.post("https://academe-connect-server.vercel.app/submittedAssignments",submittedAssignment)
     .then(res => {
       const data = res.data;
@@ -73,6 +73,7 @@ const AssignmentDetails = () => {
           timer: 1500,
         });
         setIsOpen(false);
+        navigate("/assignments")
       }
     })
     .catch(error => console.log(error))
