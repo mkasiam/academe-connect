@@ -7,12 +7,12 @@ import Root from "../Root/Root";
 import SubmittedAssignments from "../SubmittedAssignments/SubmittedAssignments";
 import UpdateAssignment from "../UpdateAssignment/UpdateAssignment";
 import AssignmentDetails from "../pages/AssignmentDetails/AssignmentDetails";
+import AssignmentViewer from "../pages/AssignmentViewer/AssignmentViewer";
 import Login from "../pages/Login/Login";
 import MyAssignment from "../pages/MyAssignment/MyAssignment";
 import NotFound from "../pages/NotFound/NotFound";
 import Profile from "../pages/Profile/Profile";
 import Register from "../pages/Register/Register";
-import AssignmentViewer from "../pages/AssignmentViewer/AssignmentViewer";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       {
         path: "/assignments",
         element: <Assignments></Assignments>,
-        loader: () => fetch("http://localhost:5000/assignmentsCount"),
+        loader: () => fetch("https://academe-connect-server.vercel.app/assignmentsCount"),
       },
       {
         path: "/createAssignment",
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/assignments/${params.id}`),
+          fetch(`https://academe-connect-server.vercel.app/assignments/${params.id}`),
       },
       {
         path: "/assignmentDetails/:id",
@@ -70,7 +70,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/assignments/${params.id}`),
+          fetch(`https://academe-connect-server.vercel.app/assignments/${params.id}`),
       },
       {
         path: "/submittedAssignments",
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: () =>
-          fetch("http://localhost:5000/submittedAssignments?status=pending", {
+          fetch("https://academe-connect-server.vercel.app/submittedAssignments?status=pending", {
             credentials: "include",
           }),
       },
@@ -96,7 +96,7 @@ const router = createBrowserRouter([
         path: "/pdfView/:id",
         element: <AssignmentViewer></AssignmentViewer>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/submittedAssignments/${params.id}`),
+          fetch(`https://academe-connect-server.vercel.app/submittedAssignments/${params.id}`),
       },
       {
         path: "*",

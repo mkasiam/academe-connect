@@ -13,7 +13,7 @@ const SubmittedAssignments = () => {
     const obtainMarks = form.obtainMarks.value;
     const feedback = form.feedback.value;
     const assignment = { obtainMarks, feedback, status: "completed" };
-    fetch(`http://localhost:5000/submittedAssignments/${id}`, {
+    fetch(`https://academe-connect-server.vercel.app/submittedAssignments/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

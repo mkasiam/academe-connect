@@ -1,8 +1,8 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Assignment from "../Assignment/Assignment";
 import "./Assignments.css";
-import axios from "axios";
 
 const Assignments = () => {
   const [assignments, setAssignments] = useState([]);
@@ -16,7 +16,7 @@ const Assignments = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/assignments?page=${currentPage}&size=${itemsPerPage}`,
+        `https://academe-connect-server.vercel.app/assignments?page=${currentPage}&size=${itemsPerPage}`,
         { withCredentials: true }
       )
       .then((res) => setAssignments(res.data));
