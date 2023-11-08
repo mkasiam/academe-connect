@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const SubmittedAssignments = () => {
@@ -13,16 +13,13 @@ const SubmittedAssignments = () => {
     const obtainMarks = form.obtainMarks.value;
     const feedback = form.feedback.value;
     const assignment = { obtainMarks, feedback, status: "completed" };
-    fetch(
-      `http://localhost:5000/submittedAssignments/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(assignment),
-      }
-    )
+    fetch(`http://localhost:5000/submittedAssignments/${id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(assignment),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -94,12 +91,14 @@ const SubmittedAssignments = () => {
                               <label className="text-lg font-semibold">
                                 PDF Link:
                               </label>
-                              <input
-                                type="text"
-                                name="pdfLink"
-                                className="w-full px-3 py-2 border rounded-md"
-                                defaultValue={assignment.pdfLink}
-                              />
+                              <Link to={`/pdfView/${assignment._id}`}>
+                                <input
+                                  type="text"
+                                  name="pdfLink"
+                                  className="w-full px-3 py-2 border rounded-md"
+                                  defaultValue={assignment.pdfLink}
+                                />
+                              </Link>
                             </div>
                             <div className="my-3">
                               <label className="text-lg font-semibold">

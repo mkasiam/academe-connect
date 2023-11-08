@@ -12,6 +12,7 @@ import MyAssignment from "../pages/MyAssignment/MyAssignment";
 import NotFound from "../pages/NotFound/NotFound";
 import Profile from "../pages/Profile/Profile";
 import Register from "../pages/Register/Register";
+import AssignmentViewer from "../pages/AssignmentViewer/AssignmentViewer";
 
 const router = createBrowserRouter([
   {
@@ -90,6 +91,12 @@ const router = createBrowserRouter([
             <MyAssignment></MyAssignment>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/pdfView/:id",
+        element: <AssignmentViewer></AssignmentViewer>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/submittedAssignments/${params.id}`),
       },
       {
         path: "*",
