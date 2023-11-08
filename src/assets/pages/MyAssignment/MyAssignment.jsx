@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+
 
 const MyAssignment = () => {
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [assignments, setAssignments] = useState([]);
+  const url = `/submittedAssignments?email=${user?.email}`
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/submittedAssignments?email=${user?.email}`)
+    axiosSecure
+      .get(url)
       .then((response) => setAssignments(response.data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, [user?.email]);
+  }, [url,axiosSecure]);
 
   return (
     <div className="p-4">

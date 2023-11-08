@@ -1,14 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Assignment from "../Assignment/Assignment";
+import "./Assignments.css";
 
 const Assignments = () => {
-  const assignments = useLoaderData();
+  const [assignments,setAssignments] = useState([]);
   const [selectedDifficulty, setSelectedDifficulty] = useState("all"); 
+  const [itemsPerPage, setItemsPerPage] = useState(8);
+  const [currentPage, setCurrentPage] = useState(0);
+  const { count } = useLoaderData();
+  const NumberOfPages = Math.ceil(count / itemsPerPage);
+  const pages = [...Array(NumberOfPages).keys()];
+
+  useEffect(() => {
+    fetch(
+      `http://localhost:5000/assignments?page=${currentPage}&size=${itemsPerPage}`
+    )
+      .then((res) => res.json())
+      .then((data) => setAssignments(data));
+  }, [currentPage, itemsPerPage]);
 
   // Handle user's difficulty level selection
   const handleFilterChange = (e) => {
     setSelectedDifficulty(e.target.value);
+  };
+  const handleItemsPerPage = (e) => {
+    const val = parseInt(e.target.value);
+    setItemsPerPage(val);
+    setCurrentPage(0);
+  };
+  const handlePrevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const handleNextPage = () => {
+    if (currentPage < pages.length - 1) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   // Filtering Assignment based on the difficulty level
@@ -47,6 +76,30 @@ const Assignments = () => {
         {filteredAssignments.map((assignment) => (
           <Assignment key={assignment._id} assignment={assignment} />
         ))}
+      </div>
+      <div className="pagination">
+        <button className="text-lg font-semibold" onClick={handlePrevPage}>Prev</button>
+        {pages.map((number) => (
+          <button
+            className={currentPage === number ? "selected" : undefined}
+            onClick={() => setCurrentPage(number)}
+            key={number}
+          >
+            {number}
+          </button>
+        ))}
+        <button onClick={handleNextPage}>Next</button>
+        <select
+          value={itemsPerPage}
+          onChange={handleItemsPerPage}
+          name=""
+          id=""
+        >
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
       </div>
     </div>
   );
