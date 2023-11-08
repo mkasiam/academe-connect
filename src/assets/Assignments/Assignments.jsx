@@ -7,7 +7,7 @@ import "./Assignments.css";
 const Assignments = () => {
   const [assignments, setAssignments] = useState([]);
   const [selectedDifficulty, setSelectedDifficulty] = useState("all");
-  const [itemsPerPage, setItemsPerPage] = useState(8);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(0);
   const { count } = useLoaderData();
   const NumberOfPages = Math.ceil(count / itemsPerPage);
@@ -99,10 +99,10 @@ const Assignments = () => {
           name=""
           id=""
         >
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="12">12</option>
+          <option value="15">15</option>
         </select>
       </div>
     </div>
