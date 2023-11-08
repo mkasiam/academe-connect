@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Assignment from "../Assignment/Assignment";
 import "./Assignments.css";
+import axios from "axios";
 
 const Assignments = () => {
-  const [assignments,setAssignments] = useState([]);
-  const [selectedDifficulty, setSelectedDifficulty] = useState("all"); 
+  const [assignments, setAssignments] = useState([]);
+  const [selectedDifficulty, setSelectedDifficulty] = useState("all");
   const [itemsPerPage, setItemsPerPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(0);
   const { count } = useLoaderData();
@@ -13,11 +14,12 @@ const Assignments = () => {
   const pages = [...Array(NumberOfPages).keys()];
 
   useEffect(() => {
-    fetch(
-      `http://localhost:5000/assignments?page=${currentPage}&size=${itemsPerPage}`
-    )
-      .then((res) => res.json())
-      .then((data) => setAssignments(data));
+    axios
+      .get(
+        `http://localhost:5000/assignments?page=${currentPage}&size=${itemsPerPage}`,
+        { withCredentials: true }
+      )
+      .then((res) => setAssignments(res.data));
   }, [currentPage, itemsPerPage]);
 
   // Handle user's difficulty level selection
@@ -78,7 +80,9 @@ const Assignments = () => {
         ))}
       </div>
       <div className="pagination">
-        <button className="text-lg font-semibold" onClick={handlePrevPage}>Prev</button>
+        <button className="text-lg font-semibold" onClick={handlePrevPage}>
+          Prev
+        </button>
         {pages.map((number) => (
           <button
             className={currentPage === number ? "selected" : undefined}

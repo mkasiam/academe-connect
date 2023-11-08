@@ -153,7 +153,7 @@ const Register = () => {
               <div className="mt-6">
                 <button
                   type="submit"
-                  className="btn bg-[#FF3811] hover:bg-[#da543a] text-white w-full rounded-md"
+                  className="btn bg-[#8768EE] hover:bg-[#6d47ea] text-white w-full rounded-md"
                 >
                   Sign Up
                 </button>
@@ -161,9 +161,9 @@ const Register = () => {
               <div>
                 <p className="text-[#706F6F] text-lg">
                   Have An Account ?
-                  <Link className="text-[#FF0000] text-lg" to="/login">
+                  <Link className="text-[#FF0000] text-lg font-semibold" to="/login">
                     {" "}
-                    Sign In
+                    Log In
                   </Link>{" "}
                 </p>
               </div>

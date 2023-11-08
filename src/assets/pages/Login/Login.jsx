@@ -148,7 +148,7 @@ const Login = () => {
                 <div>
                   <p className="text-[#706F6F] text-lg">
                     Do not Have An Account ?
-                    <Link className="text-[#FF0000] text-lg" to="/register">
+                    <Link className="text-[#FF0000] text-lg font-semibold" to="/register">
                       {" "}
                       Sign Up
                     </Link>{" "}
@@ -157,14 +157,21 @@ const Login = () => {
               </form>
             </div>
           </div>
-          <div className="flex items-center gap-4 mt-2">
-            <h1 className="text-2xl font-bold">Also Continue with: </h1>
-            <button onClick={handleGoogleLogIn} className="btn btn-outline ">
-              <FaGoogle></FaGoogle>Google
-            </button>
-            <button onClick={handleGithubLogIn} className="btn btn-outline">
-              <FaGithub></FaGithub>Github
-            </button>
+          <div className="flex flex-col items-center mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <button
+                onClick={handleGoogleLogIn}
+                className="btn btn-primary w-full"
+              >
+                <FaGoogle className="mr-2" /> Sign in with Google
+              </button>
+              <button
+                onClick={handleGithubLogIn}
+                className="btn btn-secondary w-full"
+              >
+                <FaGithub className="mr-2" /> Sign in with GitHub
+              </button>
+            </div>
           </div>
         </div>
       </div>
