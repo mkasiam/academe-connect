@@ -80,7 +80,7 @@ const AssignmentDetails = () => {
   }
 
   return (
-    <div className="card card-side flex flex-col md:flex-row lg:flex-row bg-base-100 shadow-xl md:flex md:space-x-4">
+    <div className="card card-side flex flex-col md:flex-row lg:flex-row bg-base-100 shadow-xl md:flex md:space-x-4 my-8">
       <div className="w-full md:w-1/2 lg:w-1/2">
         <img src={thumbnail} alt="Product" className="w-full" />
       </div>
